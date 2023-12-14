@@ -2,6 +2,7 @@ import React from "react";
 import SideBar from "../components/sidebar/SideBar.jsx";
 import SignIn from "../components/signin/SignIn.jsx";
 import SignUp from "../components/signup/SignUp.jsx";
+import NotFound from "../components/notFound/NotFound.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { data } from "../utils/data.jsx";
 
@@ -16,6 +17,7 @@ const App = () => {
         </Route>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
