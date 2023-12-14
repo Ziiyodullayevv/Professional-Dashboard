@@ -1,18 +1,25 @@
 import Users from "../components/users/Users.jsx";
 import Products from "../components/products/Products.jsx";
+import {
+  UserOutlined,
+  AreaChartOutlined,
+  UsergroupAddOutlined,
+} from "@ant-design/icons";
 export const data = [
   {
     id: 1,
-    title: "Users",
-    path: "/users",
-    element: <h1 style={{ background: "red" }}>Users</h1>,
-    private: false,
+    icon: <AreaChartOutlined />,
+    label: "Analytics",
+    path: "/",
+    element: <Users />,
+    hidden: false,
   },
   {
     id: 2,
-    title: "Products",
-    path: "/products",
-    element: <h1 style={{ background: "red" }}>Products</h1>,
-    private: false,
+    icon: <UsergroupAddOutlined />,
+    label: "Users",
+    path: "/users",
+    element: <Users />,
+    hidden: false,
   },
 ];
