@@ -1,12 +1,13 @@
 import Users from "../components/users/Users.jsx";
 import { AreaChartOutlined, UsergroupAddOutlined } from "@ant-design/icons";
+import Analytics from "../components/analytics/Analytics.jsx";
 export const data = [
   {
     id: 1,
     icon: <AreaChartOutlined />,
     label: "Analytics",
     path: "/",
-    element: <Users />,
+    element: <Analytics />,
     hidden: false,
   },
   {

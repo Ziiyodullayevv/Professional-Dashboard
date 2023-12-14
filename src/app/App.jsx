@@ -1,6 +1,8 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SideBar from "../components/sidebar/SideBar.jsx";
+import SignIn from "../components/signin/SignIn.jsx";
+import SignUp from "../components/signup/SignUp.jsx";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { data } from "../utils/data.jsx";
 
 const App = () => {
@@ -12,6 +14,8 @@ const App = () => {
             <Route key={id} path={path} element={element} />
           ))}
         </Route>
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );

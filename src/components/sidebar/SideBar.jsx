@@ -67,25 +67,22 @@ const SideBar = () => {
       </Sider>
       <Layout>
         <Header className="header">
-          <Button
-            type="text"
-            icon={
-              collapsed ? (
-                <MenuUnfoldOutlined style={{ fontSize: "24px" }} />
-              ) : (
-                <MenuFoldOutlined style={{ fontSize: "24px" }} />
-              )
-            }
+          <div
             onClick={() => setCollapsed(!collapsed)}
             style={{
+              cursor: "pointer",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               color: "white",
-              width: 50,
-              height: 50,
             }}
-          />
+          >
+            {collapsed ? (
+              <MenuUnfoldOutlined style={{ fontSize: "24px" }} />
+            ) : (
+              <MenuFoldOutlined style={{ fontSize: "24px" }} />
+            )}
+          </div>
           <div className="header-bar">
             <Avatar
               style={{ background: "white", color: "black" }}
