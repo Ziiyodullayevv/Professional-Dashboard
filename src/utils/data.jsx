@@ -1,10 +1,5 @@
 import Users from "../components/users/Users.jsx";
-import Products from "../components/products/Products.jsx";
-import {
-  UserOutlined,
-  AreaChartOutlined,
-  UsergroupAddOutlined,
-} from "@ant-design/icons";
+import { AreaChartOutlined, UsergroupAddOutlined } from "@ant-design/icons";
 export const data = [
   {
     id: 1,

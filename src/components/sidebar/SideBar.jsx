@@ -104,7 +104,6 @@ const SideBar = () => {
           }}
         >
           <Outlet />
-          <h1>Hello world</h1>
         </Content>
       </Layout>
     </Layout>
