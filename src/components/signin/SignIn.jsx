@@ -1,6 +1,11 @@
 import React from "react";
+import Header from "../header/Header.jsx";
 
 const SignIn = () => {
-  return <div style={{ backgroundColor: "red" }}>SignIn</div>;
+  return (
+    <div className="signin">
+      <Header />
+    </div>
+  );
 };
 export default SignIn;
