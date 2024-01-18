@@ -2,10 +2,9 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "../components/notFound/NotFound.jsx";
 import RootLayout from "../pages/Root.jsx";
-import OrderPage from "../pages/OrderPage.jsx";
-import AuthenticationPage, {
-  action as authAction,
-} from "../pages/Authentication.jsx";
+import Order from "../pages/Order.jsx";
+import SignUp, { action as SignUpAction } from "../pages/SignUp.jsx";
+import SignIn from "../pages/SignIn.jsx";
 
 // Router:
 const router = createBrowserRouter([
@@ -15,14 +14,18 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { path: "magazine", element: <h1>MagazinePage</h1> },
-      { path: "order", element: <OrderPage /> },
+      { path: "order", element: <Order /> },
       { path: "customer", element: <h1>CustomerPage</h1> },
     ],
   },
   {
-    path: "/auth",
-    element: <AuthenticationPage />,
-    action: authAction,
+    path: "/register",
+    element: <SignUp />,
+    action: SignUpAction,
+  },
+  {
+    path: "/login",
+    element: <SignIn />,
   },
 ]);
 

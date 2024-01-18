@@ -13,7 +13,7 @@ const Auth = () => {
 
   const isLogin = searchParams.get("mode") === "login";
   const isSubmitting = navigation.state === "submitting";
-  console.log(navigation.state, "navigation");
+
   return (
     <div className={"register-container"}>
       <Header />
@@ -48,6 +48,7 @@ const Auth = () => {
               {isLogin ? (
                 <>
                   <Input
+                    required
                     type="tel"
                     style={{ margin: "10px 0" }}
                     rootClassName="input"
@@ -55,6 +56,7 @@ const Auth = () => {
                     placeholder="Telefon Raqam"
                   />
                   <Input
+                    required
                     type={"password"}
                     name="password"
                     style={{ margin: "10px 0" }}
@@ -70,6 +72,7 @@ const Auth = () => {
                     style={{ margin: "10px 0" }}
                     rootClassName={"input"}
                     placeholder="Ism va Familiya"
+                    name={"full_name"}
                   />
 
                   <Input
@@ -78,6 +81,7 @@ const Auth = () => {
                     style={{ margin: "10px 0" }}
                     rootClassName={"input"}
                     placeholder="Telefon Raqam"
+                    name={"phone_number"}
                   />
                   <Input
                     required
@@ -85,6 +89,7 @@ const Auth = () => {
                     style={{ margin: "10px 0" }}
                     rootClassName={"input"}
                     placeholder="Parol"
+                    name={"password"}
                   />
                   <Input
                     required
@@ -92,6 +97,7 @@ const Auth = () => {
                     style={{ margin: "10px 0" }}
                     rootClassName="input"
                     placeholder="Parolni Tasdiqlash"
+                    name={"confirm_password"}
                   />
                 </>
               )}
