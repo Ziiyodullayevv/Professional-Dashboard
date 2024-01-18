@@ -1,26 +1,33 @@
 import React from "react";
-import SideBar from "../components/sidebar/SideBar.jsx";
-import SignIn from "../components/signin/SignIn.jsx";
-import SignUp from "../components/signup/SignUp.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "../components/notFound/NotFound.jsx";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { data } from "../utils/data.jsx";
+import RootLayout from "../pages/Root.jsx";
+import OrderPage from "../pages/OrderPage.jsx";
+import AuthenticationPage, {
+  action as authAction,
+} from "../pages/Authentication.jsx";
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={"/"} element={<SideBar />}>
-          {data.map(({ id, path, element }) => (
-            <Route key={id} path={path} element={element} />
-          ))}
-        </Route>
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+// Router:
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    errorElement: <NotFound />,
+    children: [
+      { path: "magazine", element: <h1>MagazinePage</h1> },
+      { path: "order", element: <OrderPage /> },
+      { path: "customer", element: <h1>CustomerPage</h1> },
+    ],
+  },
+  {
+    path: "/auth",
+    element: <AuthenticationPage />,
+    action: authAction,
+  },
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
+}
 
 export default App;

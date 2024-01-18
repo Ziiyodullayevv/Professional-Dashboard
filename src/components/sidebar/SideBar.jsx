@@ -6,15 +6,43 @@ import {
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Button, Avatar } from "antd";
-import logo from "../../assets/logo.svg";
-import { Outlet, Link, useLocation } from "react-router-dom";
-import { data } from "../../utils/data.jsx";
+import { Layout, Menu, Avatar } from "antd";
+import logo from "../../assets/logo(original).svg";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
 const SideBar = () => {
   const location = useLocation();
+  const getMenuSelectedKeys = () => {
+    // Saqlangan sahifaning path'ini olish
+    const pathName = location.pathname;
+
+    if (pathName === "/") return ["1"];
+    if (pathName === "/order") return ["2"];
+    if (pathName === "/magazine") return ["3"];
+
+    return [];
+  };
+  // paths:
+  const items = [
+    {
+      key: "1",
+      icon: <UserOutlined />,
+      label: <NavLink to={"/"}>Home</NavLink>,
+    },
+    {
+      key: "2",
+      icon: <UserOutlined />,
+      label: <NavLink to={"/order"}>Order</NavLink>,
+    },
+    {
+      key: "3",
+      icon: <UserOutlined />,
+      label: <NavLink to={"/magazine"}>Magazine</NavLink>,
+    },
+  ];
+
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout style={{ height: "100vh" }}>
@@ -34,7 +62,7 @@ const SideBar = () => {
           {!collapsed ? (
             <span
               style={{
-                color: collapsed ? null : "white",
+                color: collapsed ? "" : "white",
               }}
               className="logo-title"
             >
@@ -43,27 +71,13 @@ const SideBar = () => {
           ) : null}
         </div>
         <Menu
-          theme="dark"
+          theme="light"
+          color="black"
           mode="inline"
-          defaultSelectedKeys={1}
-          defaultOpenKeys={["sub1"]}
           style={{ height: "100%", borderRight: 0, background: "transparent" }}
-        >
-          {data.map(
-            ({ id, label, icon, path, hidden }) =>
-              !hidden && (
-                <Menu.Item
-                  className={`menu-item ${
-                    location.pathname === path ? "active" : ""
-                  }`}
-                  key={id}
-                  icon={icon}
-                >
-                  <Link to={path}>{label}</Link>
-                </Menu.Item>
-              ),
-          )}
-        </Menu>
+          defaultSelectedKeys={getMenuSelectedKeys()}
+          items={items}
+        />
       </Sider>
       <Layout>
         <Header className="header">
@@ -74,7 +88,7 @@ const SideBar = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              color: "white",
+              color: "black",
             }}
           >
             {collapsed ? (
@@ -94,7 +108,7 @@ const SideBar = () => {
         <Content
           className="content"
           style={{
-            color: "white",
+            color: "black",
             overflowY: "auto",
             padding: 24,
             minHeight: 280,

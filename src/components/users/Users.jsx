@@ -1,7 +1,7 @@
 import React from "react";
-
+import "./users.scss";
 const Users = () => {
-  return <h1>Users</h1>;
+  return <div className="users">Users</div>;
 };
 
 export default Users;
