@@ -1,10 +1,10 @@
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import NotFound from "../components/notFound/NotFound.jsx";
 import RootLayout from "../pages/Root.jsx";
 import Order from "../pages/Order.jsx";
 import SignUp, { action as SignUpAction } from "../pages/SignUp.jsx";
-import SignIn from "../pages/SignIn.jsx";
+import SignIn, { action as SignInAction } from "../pages/SignIn.jsx";
 
 // Router:
 const router = createBrowserRouter([
@@ -26,6 +26,7 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <SignIn />,
+    action: SignInAction,
   },
 ]);
 
