@@ -4,13 +4,15 @@ import "../styles/register.scss";
 import Header from "../components/header/Header.jsx";
 import Login from "../components/login/Login.jsx";
 import Footer from "../components/footer/Footer.jsx";
-import { redirect } from "react-router-dom";
+import { redirect, useActionData } from "react-router-dom";
 
 const SignInPage = () => {
+  const data = useActionData();
+  console.log(data, "errorData");
   return (
     <div className={"register-container"}>
       <Header />
-      <Login />
+      <Login errorData={data} />
       <Footer />
     </div>
   );
@@ -21,9 +23,16 @@ export default SignInPage;
 export const action = async ({ request }) => {
   const data = await request.formData();
 
+  let phoneData = data
+    .get("phone_number")
+    .slice(4)
+    .replace(/ /g, "")
+    .replace(/\(/g, "")
+    .replace(/\)/g, "");
+
   const loginData = {
     password: data.get("password"),
-    phone_number: data.get("phone_number").replaceAll(" ", "").slice(4, 13),
+    phone_number: phoneData,
   };
 
   const response = await fetch("http://127.0.0.1:8000/v1/customer/login/", {

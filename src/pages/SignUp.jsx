@@ -3,9 +3,11 @@ import "../styles/register.scss";
 import Header from "../components/header/Header.jsx";
 import Footer from "../components/footer/Footer.jsx";
 import Register from "../components/register/Register.jsx";
-import { redirect } from "react-router-dom";
+import { redirect, useActionData } from "react-router-dom";
 
 const SignUpPage = () => {
+  const data = useActionData();
+  console.log(data, "register");
   return (
     <div className={"register-container"}>
       <Header />
@@ -20,9 +22,16 @@ export default SignUpPage;
 export const action = async ({ request }) => {
   const data = await request.formData();
 
+  let phoneData = data
+    .get("phone_number")
+    .slice(4)
+    .replace(/ /g, "")
+    .replace(/\(/g, "")
+    .replace(/\)/g, "");
+
   const registerData = {
     full_name: data.get("full_name"),
-    phone_number: data.get("phone_number"),
+    phone_number: phoneData,
     status: 2,
     password: data.get("password"),
     confirm_password: data.get("confirm_password"),

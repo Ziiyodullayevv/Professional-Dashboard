@@ -1,36 +1,31 @@
 import "../../styles/generic.scss";
 import "../../styles/register.scss";
-import { Button, Input, Typography } from "antd";
-import { Form, useNavigation, useNavigate } from "react-router-dom";
-import { useState } from "react";
 
+import { useState } from "react";
+import {
+  Form,
+  useNavigation,
+  useNavigate,
+  useActionData,
+} from "react-router-dom";
+import { Button, Input, Space, Typography } from "antd";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+
+// phoneInput package:
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { PatternFormat } from "react-number-format";
 
 const { Title, Paragraph } = Typography;
 
-const Login = () => {
-  // navigate:
-  const navigate = useNavigate();
-
-  // loading button:
+const Login = ({ errorData }) => {
+  // loading action:
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
-  // phone number actions:
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [valid, setValid] = useState(true);
-
-  const handleChange = (value) => {
-    setPhoneNumber(value);
-    setValid(validatePhoneNumber(value));
-  };
-
-  const validatePhoneNumber = (phoneNumber) => {
-    const phoneNumberPattern = /^\d{12}$/;
-    return phoneNumberPattern.test(phoneNumber);
-  };
-
+  // navigate:
+  const navigate = useNavigate();
+  const response = useActionData();
   return (
     <div className={"register-wrapper"}>
       <div className={"register"}>
@@ -43,10 +38,9 @@ const Login = () => {
             Avval ro'yhatdan o'tmagan bo'lsangiz ro'yhatdan o'tish tugmasini
             bosing!
           </Title>
-
           <Button
             onClick={() => navigate("/register")}
-            style={{ marginTop: "20px" }}
+            style={{ marginTop: "20px", position: "relative", zIndex: "3" }}
             shape="round"
             size="medium"
             className="btn-primary-light"
@@ -63,48 +57,41 @@ const Login = () => {
             >
               Hisobni Tasdiqlash
             </Title>
-            <span style={{ width: "100%" }}>
-              <PhoneInput
-                inputStyle={{
-                  width: "100%",
-                  color: "black",
-                  padding: "22px 50px",
-                  backgroundColor: "transparent",
-                  border: "1px solid  #dfdfdf",
-                }}
-                buttonStyle={{
-                  border: "1px solid  #dfdfdf",
-                }}
-                country={"uz"}
-                inputProps={{
-                  name: "phone_number",
-                  required: true,
-                  autoFocus: true,
-                }}
-                type={"text"}
-                value={phoneNumber}
-                onChange={handleChange}
-              />
-              {!valid && (
-                <Paragraph style={{ marginBottom: "-10px" }} type={"danger"}>
-                  Telefon raqam to'gri kiritilmagan
-                </Paragraph>
-              )}
-            </span>
-            <Input
-              required
-              status={"error"}
-              type={"password"}
-              style={{ margin: "20px 0 10px 0" }}
-              rootClassName={"input"}
-              placeholder="Parol"
-              name={"password"}
-            />
+            {response?.detail && (
+              <Paragraph style={{ marginTop: "-10px" }} type={"danger"}>
+                Telefon raqam yoki parol noto'g'ri terilgan!
+              </Paragraph>
+            )}
+            <Space
+              style={{ width: "100%" }}
+              direction={"vertical"}
+              size={"middle"}
+            >
+              <div>
+                <FormatInput name={"phone_number"} />
+                {errorData?.phone_number && (
+                  <Paragraph style={{ marginBottom: "-10px" }} type={"danger"}>
+                    Telefon raqam to'gri kiritilmagan
+                  </Paragraph>
+                )}
+              </div>
 
+              <div className="custom-input-password">
+                <Input.Password
+                  required
+                  type="password"
+                  placeholder="Parol"
+                  name="password"
+                  iconRender={(visible) =>
+                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                  }
+                />
+              </div>
+            </Space>
             <Button
               htmlType={"submit"}
               loading={isSubmitting}
-              style={{ marginTop: "15px" }}
+              style={{ marginTop: "30px" }}
               size="medium"
               shape="round"
               className="btn-primary-dark"
@@ -119,3 +106,20 @@ const Login = () => {
 };
 
 export default Login;
+
+const FormatInput = ({ status, name, onChange }) => {
+  return (
+    <div className={"custom-phone-format"}>
+      <PatternFormat
+        required
+        mask={"_"}
+        className={`phone-format ${status}`}
+        format="+998 (##) ### ## ##"
+        name={name}
+        onValueChange={onChange}
+        valueIsNumericString={true}
+        placeholder="Telefon raqam kiriting"
+      />
+    </div>
+  );
+};
